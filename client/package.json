@@ -1,0 +1,10 @@
+{
+  "name": "action-client",
+  "version": "0.1.0",
+  "description": "Dockerized action client",
+  "private": true,
+  "bin": {
+    "action-client": "src/cli.js"
+  },
+  "type": "commonjs"
+}
