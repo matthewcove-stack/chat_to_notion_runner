@@ -1,0 +1,16 @@
+{
+  "endpoint": "/v1/actions/run",
+  "request_id": "req_12345",
+  "idempotency_key": "idem_12345",
+  "actor": {
+    "type": "user",
+    "id": "user_123"
+  },
+  "payload": {
+    "action": "notion.create",
+    "data": {
+      "title": "Example Action",
+      "content": "This is a sample payload."
+    }
+  }
+}
