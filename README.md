@@ -1,4 +1,4 @@
-# Action Runner (Clipboard -> HTTPS -> Notion OS)
+# Action Relay (Clipboard -> HTTPS -> Notion OS)
 
 This repo provides a Docker-only action client and a Windows hotkey wrapper for running JSON action packets.
 

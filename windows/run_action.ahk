@@ -4,7 +4,7 @@
 {
     clip := A_Clipboard
     if (clip = "") {
-        TrayTip("Action Runner", "Clipboard is empty.", 2000)
+        TrayTip("Action Relay", "Clipboard is empty.", 2000)
         return
     }
 
@@ -22,12 +22,12 @@
     }
 
     if (exitCode = 0) {
-        TrayTip("Action Runner", "Success. Response copied to clipboard.", 2000)
+        TrayTip("Action Relay", "Success. Response copied to clipboard.", 2000)
     } else {
         brief := stderr
         if (StrLen(brief) > 200) {
             brief := SubStr(brief, 1, 200) "..."
         }
-        TrayTip("Action Runner", "Failed: " brief, 3000)
+        TrayTip("Action Relay", "Failed: " brief, 3000)
     }
 }
