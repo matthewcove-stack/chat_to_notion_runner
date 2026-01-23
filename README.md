@@ -1,6 +1,8 @@
 # Action Relay (Clipboard -> HTTPS -> Notion OS)
 
-This repo provides a Docker-only action client and a Windows hotkey wrapper for sending JSON intent packets.
+This repo provides a Docker-only action client and an optional Windows hotkey wrapper for sending JSON intent packets.
+
+Docker-only note: when the client runs inside a container, `ACTION_BASE_URL` must point to a reachable Docker service name (not localhost).
 
 ## Setup
 
@@ -34,7 +36,9 @@ To avoid network calls, set `DRY_RUN=1` in `.env`.
 docker compose run --rm test smoke
 ```
 
-## Windows hotkey (AutoHotkey v2)
+## Windows hotkey (AutoHotkey v2, optional)
+
+This is a host convenience and not part of the canonical docker-only workflow.
 
 1) Install AutoHotkey v2: https://www.autohotkey.com/
 2) Double-click `windows\run_action.ahk` to run it.
