@@ -1,15 +1,3 @@
-# Intent Packet Contract
-
-The client accepts a single JSON object representing an intent packet.
-It posts the JSON body to `/v1/intents`.
-
-Required fields:
-
-- kind (string, must be `intent`)
-
-Example:
-
-```json
 {
   "kind": "intent",
   "intent_type": "create_task",
@@ -24,4 +12,3 @@ Example:
   "source": "chat",
   "timestamp": "2026-01-19T20:00:00Z"
 }
-```

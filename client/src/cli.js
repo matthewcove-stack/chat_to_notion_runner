@@ -41,41 +41,25 @@ function parseJson(input) {
   }
 }
 
-function validateEnvelope(envelope) {
-  if (!isPlainObject(envelope)) {
+function validateIntentPacket(packet) {
+  if (!isPlainObject(packet)) {
     fail('Input must be a JSON object.');
   }
 
-  const { endpoint, request_id, payload } = envelope;
-
-  if (!endpoint || typeof endpoint !== 'string') {
-    fail('endpoint is required and must be a string.');
-  }
-  if (!endpoint.startsWith('/v1/')) {
-    fail('endpoint must start with /v1/.');
-  }
-  if (!request_id || typeof request_id !== 'string') {
-    fail('request_id is required and must be a string.');
-  }
-  if (!isPlainObject(payload)) {
-    fail('payload is required and must be an object.');
+  if (packet.kind !== 'intent') {
+    fail('kind is required and must be "intent".');
   }
 
-  return envelope;
+  return packet;
 }
 
-function buildRequest(envelope, baseUrl) {
-  const url = `${baseUrl.replace(/\/$/, '')}${envelope.endpoint}`;
+function buildRequest(packet, baseUrl) {
+  const url = `${baseUrl.replace(/\/$/, '')}/v1/intents`;
   const headers = {
     Authorization: `Bearer ${process.env.ACTION_BEARER_TOKEN || ''}`,
     'Content-Type': 'application/json'
   };
-  const body = {
-    request_id: envelope.request_id,
-    idempotency_key: envelope.idempotency_key,
-    actor: envelope.actor,
-    payload: envelope.payload
-  };
+  const body = packet;
 
   return { url, headers, body };
 }
@@ -108,14 +92,14 @@ async function run() {
     process.exit(1);
   }
 
-  const envelope = validateEnvelope(parseJson(input));
+  const packet = validateIntentPacket(parseJson(input));
 
   const baseUrl = process.env.ACTION_BASE_URL;
   if (!baseUrl) {
     fail('ACTION_BASE_URL is required.');
   }
 
-  const { url, headers, body } = buildRequest(envelope, baseUrl);
+  const { url, headers, body } = buildRequest(packet, baseUrl);
 
   if (process.env.DRY_RUN === '1') {
     const redactedHeaders = { ...headers, Authorization: 'Bearer [REDACTED]' };

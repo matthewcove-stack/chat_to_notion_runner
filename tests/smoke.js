@@ -47,9 +47,8 @@ function main() {
     fail('ACTION_BASE_URL is required for tests.');
   }
 
-  const examplePath = '/app/docs/examples/example_action.json';
+  const examplePath = '/app/docs/examples/example_intent.json';
   const exampleJson = fs.readFileSync(examplePath, 'utf8');
-  const exampleEnvelope = JSON.parse(exampleJson);
 
   const stdinResult = runClient(['run', '--stdin'], exampleJson);
   if (stdinResult.status !== 0) {
@@ -61,7 +60,7 @@ function main() {
     fail('stdin output missing dry_run flag.');
   }
 
-  const expectedUrl = `${baseUrl.replace(/\/$/, '')}${exampleEnvelope.endpoint}`;
+  const expectedUrl = `${baseUrl.replace(/\/$/, '')}/v1/intents`;
   if (stdinOut.url !== expectedUrl) {
     fail(`stdin url mismatch: expected ${expectedUrl}, got ${stdinOut.url}`);
   }
@@ -80,14 +79,12 @@ function main() {
   }
 
   const badPayload = {
-    endpoint: '/bad/endpoint',
-    request_id: 'req_bad',
-    payload: {}
+    kind: 'action'
   };
 
   const badResult = runClient(['run', '--stdin'], JSON.stringify(badPayload));
   if (badResult.status === 0) {
-    fail('expected invalid endpoint to fail but got exit 0.');
+    fail('expected invalid intent packet to fail but got exit 0.');
   }
 
   console.log('smoke tests passed');

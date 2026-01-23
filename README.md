@@ -1,6 +1,6 @@
 # Action Relay (Clipboard -> HTTPS -> Notion OS)
 
-This repo provides a Docker-only action client and a Windows hotkey wrapper for running JSON action packets.
+This repo provides a Docker-only action client and a Windows hotkey wrapper for sending JSON intent packets.
 
 ## Setup
 
@@ -17,13 +17,13 @@ Copy-Item .env.example .env
 stdin mode:
 
 ```powershell
-Get-Content .\docs\examples\example_action.json | docker compose run --rm -T action-client run --stdin
+Get-Content .\docs\examples\example_intent.json | docker compose run --rm -T action-client run --stdin
 ```
 
 file mode:
 
 ```powershell
-docker compose run --rm action-client run --file docs/examples/example_action.json
+docker compose run --rm action-client run --file docs/examples/example_intent.json
 ```
 
 To avoid network calls, set `DRY_RUN=1` in `.env`.
@@ -38,7 +38,7 @@ docker compose run --rm test smoke
 
 1) Install AutoHotkey v2: https://www.autohotkey.com/
 2) Double-click `windows\run_action.ahk` to run it.
-3) Copy a JSON action packet to the clipboard.
+3) Copy a JSON intent packet to the clipboard.
 4) Press Ctrl+Shift+Enter to run it through the container.
 
 Success or failure is shown as a notification and the response is copied back to the clipboard.
