@@ -2,7 +2,7 @@
 
 This repo provides a Docker-only action client and an optional Windows hotkey wrapper for sending JSON intent packets.
 
-Docker-only note: when the client runs inside a container, `ACTION_BASE_URL` must point to a reachable Docker service name (not localhost).
+Docker-only note: when the client runs inside a container, `ACTION_BASE_URL` must point to a reachable host address. Use `host.docker.internal` when targeting a service on the host, or a public hostname/IP when the intent normaliser is on another machine.
 
 ## Setup
 
